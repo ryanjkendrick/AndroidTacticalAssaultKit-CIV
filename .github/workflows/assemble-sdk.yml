@@ -143,7 +143,7 @@ jobs:
         popd
         mv pluginsdk atak-civ-sdk
     - name: Upload SDK build output
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: assembleCivSdk
         path: |
