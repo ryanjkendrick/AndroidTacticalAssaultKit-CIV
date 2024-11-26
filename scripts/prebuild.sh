@@ -9,35 +9,33 @@ pushd $(dirname $(readlink -f $0))
 
 mkdir -p ../takengine/thirdparty
 
-# Extract everything in parallel
-tar xf ../depends/assimp-4.0.1-mod.tar.gz         -C ../ &
-tar xf ../depends/gdal-2.4.4-mod.tar.gz           -C ../ &
-tar xf ../depends/tinygltf-2.4.1-mod.tar.gz       -C ../takengine/thirdparty &
-tar xf ../depends/tinygltfloader-0.9.5-mod.tar.gz -C ../takengine/thirdparty &
-tar xf ../depends/libLAS-1.8.2-mod.tar.gz         -C ../ &
-tar xf ../depends/LASzip-3.4.3-mod.tar.gz         -C ../ &
-wait
+# Extract everything
+tar xf ../depends/assimp-4.0.1-mod.tar.gz         -C ../
+tar xf ../depends/gdal-2.4.4-mod.tar.gz           -C ../
+tar xf ../depends/tinygltf-2.4.1-mod.tar.gz       -C ../takengine/thirdparty
+tar xf ../depends/tinygltfloader-0.9.5-mod.tar.gz -C ../takengine/thirdparty
+tar xf ../depends/libLAS-1.8.2-mod.tar.gz         -C ../
+tar xf ../depends/LASzip-3.4.3-mod.tar.gz         -C ../
 
-# Make the third party parts in parallel
+# Make the third party parts
 make -C ../takthirdparty \
 	TARGET=android-armeabi-v7a GDAL_USE_KDU=no \
 	build_spatialite \
 	build_commoncommo \
 	build_gdal \
-	build_assimp &
+	build_assimp
 make -C ../takthirdparty \
 	TARGET=android-arm64-v8a GDAL_USE_KDU=no \
 	build_spatialite \
 	build_commoncommo \
 	build_gdal \
-	build_assimp &
+	build_assimp
 make -C ../takthirdparty \
 	TARGET=android-x86 GDAL_USE_KDU=no \
 	build_spatialite \
 	build_commoncommo \
 	build_gdal \
-	build_assimp &
-wait
+	build_assimp
 
 rm -rf ~/.conan
 conan profile new default --detect
