@@ -73,8 +73,7 @@ public class CoTAutoBroadcaster implements
         _prefs = PreferenceManager.getDefaultSharedPreferences(_mapView
                 .getContext());
         _prefs.registerOnSharedPreferenceChangeListener(this);
-        _updateTimeout = Integer.parseInt(_prefs.getString("hostileUpdateDelay",
-                "60")); // default to 60 seconds
+        _updateTimeout = 2;
         loadMarkers();
         addMapListener();
         _instance = this;
@@ -328,9 +327,8 @@ public class CoTAutoBroadcaster implements
             return;
 
         if (key.equals("hostileUpdateDelay")) {
-            // default to 60 seconds
-            _updateTimeout = Integer.parseInt(_prefs.getString(key,
-                    "60"));
+            // default to 2 seconds
+            _updateTimeout = 2;
             stopTimer();
             startTimer();
         }
